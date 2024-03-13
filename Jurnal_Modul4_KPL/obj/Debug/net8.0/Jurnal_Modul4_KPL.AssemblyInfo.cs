@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jurnal_Modul4_KPL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da5d49f72f10498fe52e0a510a655842a2b92c6a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a18de41b29669a33bca7c5543221c58e551309d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jurnal_Modul4_KPL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jurnal_Modul4_KPL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

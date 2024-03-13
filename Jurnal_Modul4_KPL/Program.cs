@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
         //Table Driven
-        Console.WriteLine("Table Driven KodeBuah");
+        Console.WriteLine("Table Driven KodeBuah\n");
         KodeBuah.namaBuah buah1 = KodeBuah.namaBuah.Kurma;
         String OutputKodeBuah1 = KodeBuah.GetKodeBuah(buah1);
         Console.WriteLine("Buah " + buah1 + " Memiliki kode buah: " + OutputKodeBuah1);
@@ -15,7 +15,7 @@
         Console.WriteLine("Buah " + buah3 + " Memiliki kode buah: " + OutputKodeBuah3);
 
         //State-Based Construction
-
+        Console.WriteLine("\nState-Based Construction Posisi Karakter Game\n");
         PosisiKarakterGame Karakter = new PosisiKarakterGame();
         Console.WriteLine("State anda sekarang adalah : " + Karakter.currentState);
         Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolS);
