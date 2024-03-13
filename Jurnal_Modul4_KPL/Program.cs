@@ -3,6 +3,7 @@
     private static void Main(string[] args)
     {
         //Table Driven
+        Console.WriteLine("Table Driven KodeBuah");
         KodeBuah.namaBuah buah1 = KodeBuah.namaBuah.Kurma;
         String OutputKodeBuah1 = KodeBuah.GetKodeBuah(buah1);
         Console.WriteLine("Buah " + buah1 + " Memiliki kode buah: " + OutputKodeBuah1);
@@ -12,6 +13,19 @@
         KodeBuah.namaBuah buah3 = KodeBuah.namaBuah.Durian;
         String OutputKodeBuah3 = KodeBuah.GetKodeBuah(buah3);
         Console.WriteLine("Buah " + buah3 + " Memiliki kode buah: " + OutputKodeBuah3);
+
+        //State-Based Construction
+
+        PosisiKarakterGame Karakter = new PosisiKarakterGame();
+        Console.WriteLine("State anda sekarang adalah : " + Karakter.currentState);
+        Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolS);
+        Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolW);
+        Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolW);
+        Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolS);
+        Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolW);
+        Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolX);
+        Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolS);
+        Karakter.ActivateTrigger(PosisiKarakterGame.Trigger.TombolW);
     }
 }
 
@@ -42,3 +56,68 @@ public class KodeBuah
     }
 }
 
+public class PosisiKarakterGame
+{
+    public enum stateGame
+    {
+        Jongkok,
+        Berdiri,
+        Terbang,
+        Tengkurap
+    }
+    public enum Trigger
+    {
+        TombolW,
+        TombolS,
+        TombolX
+    }
+    public class Transition
+    {
+        public stateGame stateAwal;
+        public stateGame stateAkhir;
+        public Trigger trigger;
+        public Transition(stateGame stateAwal, stateGame stateAkhir, Trigger trigger)
+        {
+            this.stateAwal = stateAwal;
+            this.stateAkhir = stateAkhir;
+            this.trigger = trigger;
+        }
+    }
+    Transition[] transisi =
+    {
+        new Transition(stateGame.Jongkok, stateGame.Berdiri, Trigger.TombolW),
+        new Transition(stateGame.Jongkok, stateGame.Tengkurap, Trigger.TombolS),
+        new Transition(stateGame.Tengkurap, stateGame.Jongkok, Trigger.TombolW),
+        new Transition(stateGame.Berdiri, stateGame.Jongkok, Trigger.TombolS),
+        new Transition(stateGame.Berdiri, stateGame.Terbang, Trigger.TombolW),
+        new Transition(stateGame.Terbang, stateGame.Berdiri, Trigger.TombolS),
+        new Transition(stateGame.Terbang, stateGame.Jongkok, Trigger.TombolX)
+    };
+    public stateGame GetNextState(stateGame stateAwal, Trigger trigger)
+    {
+        stateGame stateAkhir = stateAwal;
+        for (int i = 0; i < transisi.Length; i++)
+        {
+            Transition perubahan = transisi[i];
+            if (stateAwal == perubahan.stateAwal && trigger == perubahan.trigger)
+            {
+                stateAkhir = perubahan.stateAkhir;
+            }
+        }
+        return stateAkhir;
+    }
+    public void ActivateTrigger(Trigger trigger)
+    {
+        if (trigger == Trigger.TombolW)
+        {
+            Console.WriteLine("Tombol arah atas ditekan");
+        }
+        else if (trigger == Trigger.TombolS)
+        {
+            Console.WriteLine("Tombol arah bawah ditekan");
+        }
+        currentState = GetNextState(currentState, trigger);
+        Console.WriteLine("State anda sekarang adalah : " + currentState);
+    }
+    public stateGame currentState = stateGame.Berdiri;
+}
